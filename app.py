@@ -4,14 +4,21 @@ from flask_cors import CORS
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from flask import render_template
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)  # Enable frontend to connect
 
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
 # Load datasets (you can adjust these to read from a database or another source)
-students = pd.read_csv('C:\\Users\\HP\\OneDrive\\Desktop\\siwes_api\\students.csv')  
-internships = pd.read_csv('C:\\Users\\HP\\OneDrive\\Desktop\\siwes_api\\internships.csv')  
+students = pd.read_csv('students.csv')  
+internships = pd.read_csv('internships.csv')  
 
 # Clean and preprocess the data (ensure the relevant columns exist in your dataset)
 students['Skills'] = students['Skills'].str.lower().str.strip()
@@ -73,5 +80,3 @@ def get_recommendations():
 if __name__ == '__main__':
     app.run(debug=True)
 
-app = Flask(__name__)
-CORS(app)  # Enable frontend to connect

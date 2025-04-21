@@ -11,11 +11,10 @@
       background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fG1vZGV8ZW58MHx8fHwxNjg3NTY5NzA0&ixlib=rb-4.0.3&q=80&w=1080');
       background-color: #f4f4f4;
     }
-    
+
     .main {
       display: flex;
       flex-direction: column;
- 
       background-color: rgb(255, 255, 255);
       color: black;
       padding: 20px;
@@ -24,20 +23,27 @@
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-    
+
     h2 {
       text-align: center;
     }
-    
+
+    .subheading {
+      font-size: 14px;
+      color: rgba(100, 100, 100, 0.7);
+      text-align: center;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+
     form {
       margin-top: 20px;
-      
     }
-    
+
     label {
       font-weight: bold;
     }
-    
+
     input[type="text"] {
       width: 90%;
       padding: 10px;
@@ -45,7 +51,7 @@
       border: 2px solid rgba(58, 59, 65, 0.55);
       border-radius: 4px;
     }
-    
+
     button {
       background-color: rgb(7, 15, 83);
       color: white;
@@ -54,17 +60,17 @@
       border-radius: 8px;
       cursor: pointer;
       display: flex;
-      justify-content: center; /* Fixed typo: justify-item -> justify-content */
-      align-items: center; /* Fixed typo: align-item -> align-items */
+      justify-content: center;
+      align-items: center;
     }
-    
+
     button:hover {
       background-color: #45a049;
     }
-    
+
     /* Modal Styles */
     .modal {
-      display: none; /* Hidden by default */
+      display: none;
       position: fixed;
       z-index: 1000;
       left: 0;
@@ -72,7 +78,7 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+      background-color: rgba(0, 0, 0, 0.5);
     }
 
     .modal-content {
@@ -104,6 +110,7 @@
 
   <div class="main">
     <h2>Get Matched with Industries</h2>
+    <p class="subheading">Tell us more about you so we can offer personalized recommendations</p>
     <form id="recommend-form">
       <label>Field of Study:</label><br>
       <input type="text" id="field"><br><br>

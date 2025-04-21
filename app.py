@@ -10,8 +10,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Load datasets
-students = pd.read_csv('C:\\Users\\HP\\OneDrive\\Desktop\\siwes_matcher_api\\students.csv')  
-internships = pd.read_csv('C:\\Users\\HP\\OneDrive\\Desktop\\siwes_matcher_api\\internships.csv')  
+students = pd.read_csv('students.csv')  
+internships = pd.read_csv('internships.csv')  
 
 # Preprocess the data
 students['Skills'] = students['Skills'].str.lower().str.strip()

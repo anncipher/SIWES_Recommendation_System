@@ -10,8 +10,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Load datasets
-students = pd.read_csv('students.csv').head(100) # Load only first 100 rows
-internships = pd.read_csv('internships.csv').head(100) # Load only first 100 rows
+students = pd.read_csv('students.csv')
+internships = pd.read_csv('internships.csv')
 
 # Preprocess the data
 students['Skills'] = students['Skills'].str.lower().str.strip()
@@ -48,9 +48,9 @@ def recommend_internships(student_skills, student_field, student_location, top_n
     # Return full internship details for top matches
     top_matches = []
     for i, score in sim_scores[:top_n]:
-        match = internships.iloc[i].to_dict()
-        match['match_score'] = round(float(score), 2)
-        top_matches.append(match)
+      match = internships.iloc[i].to_dict()
+      match['match_score'] = round(float(score), 2)
+      top_matches.append(match)
     return top_matches
 
 # API endpoint for recommendations
@@ -70,3 +70,4 @@ import os
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
+

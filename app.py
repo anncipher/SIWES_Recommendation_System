@@ -10,8 +10,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Load datasets
-students = pd.read_csv('students.csv')  
-internships = pd.read_csv('internships.csv')  
+students = pd.read_csv('students.csv').head(100) # Load only first 100 rows
+internships = pd.read_csv('internships.csv').head(100) # Load only first 100 rows
 
 # Preprocess the data
 students['Skills'] = students['Skills'].str.lower().str.strip()

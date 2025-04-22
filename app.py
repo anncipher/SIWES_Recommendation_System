@@ -5,47 +5,57 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for frontend requests
+CORS(app)  # Allow cross-origin requests
 
 # Home route (optional if serving frontend)
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# Load internships data once
-internships = pd.read_csv('internships.csv')
 
-# Clean and preprocess internship data
+# Load and preprocess internships data
+internships = pd.read_csv('internships.csv')
 internships.fillna('', inplace=True)
+
+# Normalize fields
 internships['Required_Skills'] = internships['Required_Skills'].str.lower().str.strip()
 internships['Required_Field'] = internships['Required_Field'].str.lower().str.strip()
 internships['Location'] = internships['Location'].str.lower().str.strip()
 
-# Combine internship details into a single text field
-internships['combined_text'] = internships['Required_Skills'] + " " + internships['Required_Field'] + " " + internships['Location']
+# Combine features for vectorization
+internships['combined_text'] = (
+    internships['Required_Skills'] + ' ' +
+    internships['Required_Field'] + ' ' +
+    internships['Location']
+)
 
-# Initialize and fit vectorizer on internships
+# Vectorize the internship data
 vectorizer = TfidfVectorizer()
 internship_tfidf = vectorizer.fit_transform(internships['combined_text'])
 
-# Function to recommend internships
+
+# Matching Function
 def recommend_internships(skills, field, location, top_n=3):
-    input_text = f"{skills.lower().strip()} {field.lower().strip()} {location.lower().strip()}"
-    input_tfidf = vectorizer.transform([input_text])
+    user_input = f"{skills.lower().strip()} {field.lower().strip()} {location.lower().strip()}"
+    input_vector = vectorizer.transform([user_input])
+    similarity_scores = cosine_similarity(input_vector, internship_tfidf)[0]
+    top_indices = similarity_scores.argsort()[-top_n:][::-1]
 
-    # Compute cosine similarity
-    similarities = cosine_similarity(input_tfidf, internship_tfidf)[0]
-    top_indices = similarities.argsort()[-top_n:][::-1]
+    recommended = []
+    for idx in top_indices:
+        recommended.append({
+            'Company': internships.iloc[idx]['Company'],
+            'Role': internships.iloc[idx]['Role'],
+            'Location': internships.iloc[idx]['Location'].capitalize()
+        })
 
-    # Return top N company names
-    recommendations = internships.iloc[top_indices]['Company'].tolist()
-    return recommendations
+    return recommended
 
-# Recommendation API endpoint
+
+# API Route
 @app.route('/recommend', methods=['POST'])
-def get_recommendations():
+def recommend():
     data = request.get_json()
-
     skills = data.get('skills', '')
     field = data.get('field_of_study', '')
     location = data.get('preferred_location', '')
@@ -53,9 +63,10 @@ def get_recommendations():
     if not (skills and field and location):
         return jsonify({'error': 'All fields are required'}), 400
 
-    recommendations = recommend_internships(skills, field, location)
-    return jsonify({'recommended_companies': recommendations})
+    matches = recommend_internships(skills, field, location)
+    return jsonify({'recommended_companies': matches})
 
-# Run the app
+
+# Entry point
 if __name__ == '__main__':
     app.run(debug=True)

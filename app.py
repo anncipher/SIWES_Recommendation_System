@@ -1,73 +1,72 @@
-# Import necessary libraries
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Initialize Flask app
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Allow cross-origin requests
 
-# Load datasets
-students = pd.read_csv('students.csv')
+# Home route (optional if serving frontend)
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
+# Load and preprocess internships data
 internships = pd.read_csv('internships.csv')
+internships.fillna('', inplace=True)
 
-# Preprocess the data
-students['Skills'] = students['Skills'].str.lower().str.strip()
-students['Field_of_Study'] = students['Field_of_Study'].str.lower().str.strip()
-students['Preferred_Location'] = students['Preferred_Location'].str.lower().str.strip()
-
+# Normalize fields
 internships['Required_Skills'] = internships['Required_Skills'].str.lower().str.strip()
 internships['Required_Field'] = internships['Required_Field'].str.lower().str.strip()
 internships['Location'] = internships['Location'].str.lower().str.strip()
 
-# Combine relevant text for vectorization
-students['combined_text'] = students['Skills'] + " " + students['Field_of_Study'] + " " + students['Preferred_Location']
-internships['combined_text'] = internships['Required_Skills'] + " " + internships['Required_Field'] + " " + internships['Location']
+# Combine features for vectorization
+internships['combined_text'] = (
+    internships['Required_Skills'] + ' ' +
+    internships['Required_Field'] + ' ' +
+    internships['Location']
+)
 
-# Create TF-IDF vectorizer
+# Vectorize the internship data
 vectorizer = TfidfVectorizer()
+internship_tfidf = vectorizer.fit_transform(internships['combined_text'])
 
-# Fit and transform the combined text
-student_tfidf = vectorizer.fit_transform(students['combined_text'])
-internship_tfidf = vectorizer.transform(internships['combined_text'])
 
-# Compute cosine similarity matrix
-similarity_matrix = cosine_similarity(student_tfidf, internship_tfidf)
+# Matching Function
+def recommend_internships(skills, field, location, top_n=3):
+    user_input = f"{skills.lower().strip()} {field.lower().strip()} {location.lower().strip()}"
+    input_vector = vectorizer.transform([user_input])
+    similarity_scores = cosine_similarity(input_vector, internship_tfidf)[0]
+    top_indices = similarity_scores.argsort()[-top_n:][::-1]
 
-# Function to recommend internships
+    recommended = []
+    for idx in top_indices:
+        recommended.append({
+            'Company': internships.iloc[idx]['Company'],
+            'Role': internships.iloc[idx]['Role'],
+            'Location': internships.iloc[idx]['Location'].capitalize()
+        })
 
-def recommend_internships(student_skills, student_field, student_location, top_n=3):
-    input_text = student_skills.lower().strip() + " " + student_field.lower().strip() + " " + student_location.lower().strip()
-    student_tfidf_input = vectorizer.transform([input_text])
-    similarity_matrix = cosine_similarity(student_tfidf_input, internship_tfidf)
-    sim_scores = list(enumerate(similarity_matrix[0]))
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    return recommended
 
-    # Return full internship details for top matches
-    top_matches = []
-    for i, score in sim_scores[:top_n]:
-      match = internships.iloc[i].to_dict()
-      match['match_score'] = round(float(score), 2)
-      top_matches.append(match)
-    return top_matches
 
-# API endpoint for recommendations
+# API Route
 @app.route('/recommend', methods=['POST'])
-def get_recommendations():
+def recommend():
     data = request.get_json()
-    student_skills = data.get('skills', '')
-    student_field = data.get('field_of_study', '')
-    student_location = data.get('preferred_location', '')
+    skills = data.get('skills', '')
+    field = data.get('field_of_study', '')
+    location = data.get('preferred_location', '')
 
-    recommendations = recommend_internships(student_skills, student_field, student_location)
-    return jsonify({'recommended_companies': recommendations})
+    if not (skills and field and location):
+        return jsonify({'error': 'All fields are required'}), 400
 
-# Run the app
-import os
+    matches = recommend_internships(skills, field, location)
+    return jsonify({'recommended_companies': matches})
 
+
+# Entry point
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=False, host='0.0.0.0', port=port)
-
+    app.run(debug=True)

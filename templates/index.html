@@ -182,7 +182,7 @@
       const skills = document.getElementById("skills").value;
       const location = document.getElementById("location").value;
   
-      fetch("/recommend", {  // <-- changed from localhost to relative URL
+      fetch("https://skillsinnov8.onrender.com/recommend", {  // <-- changed from localhost to the deployed URL
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -5,36 +5,28 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
-CORS(app)  # Allow cross-origin requests
+CORS(app)
 
-# Home route (optional if serving frontend)
 @app.route('/')
 def home():
     return render_template('index.html')
 
-
-# Load and preprocess internships data
+# Load and preprocess internship data
 internships = pd.read_csv('internships.csv')
 internships.fillna('', inplace=True)
-
-# Normalize fields
 internships['Required_Skills'] = internships['Required_Skills'].str.lower().str.strip()
 internships['Required_Field'] = internships['Required_Field'].str.lower().str.strip()
 internships['Location'] = internships['Location'].str.lower().str.strip()
 
-# Combine features for vectorization
 internships['combined_text'] = (
     internships['Required_Skills'] + ' ' +
     internships['Required_Field'] + ' ' +
     internships['Location']
 )
 
-# Vectorize the internship data
 vectorizer = TfidfVectorizer()
 internship_tfidf = vectorizer.fit_transform(internships['combined_text'])
 
-
-# Matching Function
 def recommend_internships(skills, field, location, top_n=3):
     user_input = f"{skills.lower().strip()} {field.lower().strip()} {location.lower().strip()}"
     input_vector = vectorizer.transform([user_input])
@@ -48,11 +40,8 @@ def recommend_internships(skills, field, location, top_n=3):
             'Role': internships.iloc[idx]['Role'],
             'Location': internships.iloc[idx]['Location'].capitalize()
         })
-
     return recommended
 
-
-# API Route
 @app.route('/recommend', methods=['POST'])
 def recommend():
     data = request.get_json()

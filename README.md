@@ -90,6 +90,8 @@ Demonstrates integration of machine learning, API development, and web deploymen
 🖼️ **Interface Preview**
 
 <img width="1361" height="679" alt="SIWES Recommender" src="https://github.com/user-attachments/assets/ec9d7756-b942-4084-b403-069bf1abe083" />
+<img width="1363" height="681" alt="SIWES Recommender2" src="https://github.com/user-attachments/assets/22a765ad-5f20-42bf-901a-f451c341dadb" />
+
 
 
 🌐 Project Live: https://skills-innov8.vercel.app

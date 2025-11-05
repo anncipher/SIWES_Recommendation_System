@@ -5,6 +5,7 @@ The SIWES (Student Industrial Work Experience Scheme) Recommendation System is a
 
 The system uses a text-based similarity model (TF-IDF + Cosine Similarity) to recommend companies offering internship roles most relevant to each student’s profile.
 
+---
 
 🧩 Features
 
@@ -16,6 +17,7 @@ The system uses a text-based similarity model (TF-IDF + Cosine Similarity) to re
 
 ☁️ Fully deployed system: Flask backend on Render and frontend on Vercel.
 
+---
 
 🛠️ Tech Stack
 
@@ -39,17 +41,19 @@ Deployment
 
 Render – Hosts and serves the Flask API.
 
+---
 
 ⚙️ How It Works
 
-Students enter their Field of Study, Skills, and Preferred Location on the web page.
+1. Students enter their Field of Study, Skills, and Preferred Location on the web page.
 
-The frontend sends these inputs to the Flask API hosted on Render.
+2. The frontend sends these inputs to the Flask API hosted on Render.
 
-The API processes the request by comparing the user input with internship listings using TF-IDF vectorization and cosine similarity.
+3. The API processes the request by comparing the user input with internship listings using TF-IDF vectorization and cosine similarity.
 
-The top matching internships are returned and displayed on the interface.
+4. The top matching internships are returned and displayed on the interface.
 
+---
 
 🧪 Libraries Used
 
@@ -61,6 +65,8 @@ pandas
 
 scikit-learn
 
+---
+
 🚀 Deployment
 
 Backend (Flask) – Deployed on Render
@@ -68,6 +74,8 @@ Backend (Flask) – Deployed on Render
 Integration: The frontend connects to the backend through an API endpoint such as
 
 https://skillsinnov8.onrender.com/recommend
+
+---
 
 📊 Outcome
 
@@ -77,6 +85,7 @@ Simplified the internship search process for students.
 
 Demonstrates integration of machine learning, API development, and web deployment.
 
+---
 
 🖼️ Interface Preview
 

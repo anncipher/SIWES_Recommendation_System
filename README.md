@@ -49,9 +49,13 @@ The API processes the request by comparing the user input with internship listin
 The top matching internships are returned and displayed on the interface.
 
 🧪 Libraries Used
+
 flask
+
 flask-cors
+
 pandas
+
 scikit-learn
 
 🚀 Deployment

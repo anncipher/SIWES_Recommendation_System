@@ -96,9 +96,9 @@ Demonstrates integration of machine learning, API development, and web deploymen
 
 🌐 Project Live: https://skills-innov8.vercel.app
 
-
-## 💡 Future Improvements
 ---
+💡 **Future Improvements**
+
 - Add user authentication and personalized dashboards  
 - Integrate a database (e.g., PostgreSQL) for dynamic internship listings  
 - Deploy an ML model trained on real-time student–employer data 

@@ -1,5 +1,5 @@
 # SIWES_Recommendation_System
-🎓 SIWES Recommendation System
+
 
 The SIWES (Student Industrial Work Experience Scheme) Recommendation System is a web-based application that helps students automatically find internship opportunities that best match their skills, field of study, and preferred location.
 
@@ -16,6 +16,7 @@ The system uses a text-based similarity model (TF-IDF + Cosine Similarity) to re
 ☁️ Fully deployed system: Flask backend on Render and frontend on Vercel.
 
 🛠️ Tech Stack
+
 Backend
 
 Python (Flask) – Web framework for building the REST API.

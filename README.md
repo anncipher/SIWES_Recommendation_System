@@ -7,43 +7,43 @@ The system uses a text-based similarity model (TF-IDF + Cosine Similarity) to re
 
 ---
 
-🧩 Features
+🧩 **Features**
 
-🧠 AI-powered recommendations: Matches students to internships using skill and field similarity.
+🧠 **AI-powered recommendations:** Matches students to internships using skill and field similarity.
 
-🌍 Location-based filtering: Suggests internships within a student’s preferred area.
+🌍 **Location-based filtering:** Suggests internships within a student’s preferred area.
 
-⚡ Fast and simple interface: Built with HTML, CSS, and JavaScript for smooth interaction.
+⚡ **Fast and simple interface:** Built with HTML, CSS, and JavaScript for smooth interaction.
 
-☁️ Fully deployed system: Flask backend on Render and frontend on Vercel.
-
----
-
-🛠️ Tech Stack
-
-Backend
-
-Python (Flask) – Web framework for building the REST API.
-
-Pandas – For data manipulation and CSV handling.
-
-Scikit-learn – For text vectorization (TfidfVectorizer) and similarity computation (cosine_similarity).
-
-Flask-CORS – Enables frontend-backend communication across different domains.
-
-Frontend
-
-HTML5, CSS3, JavaScript – User interface and API interaction.
-
-Fetch API – Sends POST requests to the Flask endpoint and displays results dynamically.
-
-Deployment
-
-Render – Hosts and serves the Flask API.
+☁️ **Fully deployed system:** Flask backend on Render and frontend on Vercel.
 
 ---
 
-⚙️ How It Works
+🛠️ **Tech Stack**
+
+**Backend**
+
+**Python (Flask)** – Web framework for building the REST API.
+
+**Pandas** – For data manipulation and CSV handling.
+
+**Scikit-learn** – For text vectorization (TfidfVectorizer) and similarity computation (cosine_similarity).
+
+**Flask-CORS** – Enables frontend-backend communication across different domains.
+
+**Frontend**
+
+**HTML5, CSS3, JavaScript** – User interface and API interaction.
+
+**Fetch API** – Sends POST requests to the Flask endpoint and displays results dynamically.
+
+**Deployment**
+
+**Render** – Hosts and serves the Flask API.
+
+---
+
+⚙️ **How It Works**
 
 1. Students enter their Field of Study, Skills, and Preferred Location on the web page.
 
@@ -55,7 +55,7 @@ Render – Hosts and serves the Flask API.
 
 ---
 
-🧪 Libraries Used
+🧪 **Libraries Used**
 
 flask
 
@@ -67,17 +67,17 @@ scikit-learn
 
 ---
 
-🚀 Deployment
+🚀 **Deployment**
 
-Backend (Flask) – Deployed on Render
+**Backend (Flask)** – Deployed on Render
 
-Integration: The frontend connects to the backend through an API endpoint such as
+**Integration:** The frontend connects to the backend through an API endpoint such as
 
 https://skillsinnov8.onrender.com/recommend
 
 ---
 
-📊 Outcome
+📊 **Outcome**
 
 Fully functional web app that generates personalized internship recommendations.
 
@@ -87,11 +87,9 @@ Demonstrates integration of machine learning, API development, and web deploymen
 
 ---
 
-🖼️ Interface Preview
+🖼️ **Interface Preview**
 
 <img width="1361" height="679" alt="SIWES Recommender" src="https://github.com/user-attachments/assets/ec9d7756-b942-4084-b403-069bf1abe083" />
 
-
-📧 Email: anncliff2509@gmail.com
 
 🌐 Project Live: https://skills-innov8.vercel.app

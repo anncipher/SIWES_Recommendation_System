@@ -5,6 +5,7 @@ The SIWES (Student Industrial Work Experience Scheme) Recommendation System is a
 
 The system uses a text-based similarity model (TF-IDF + Cosine Similarity) to recommend companies offering internship roles most relevant to each student’s profile.
 
+
 🧩 Features
 
 🧠 AI-powered recommendations: Matches students to internships using skill and field similarity.
@@ -14,6 +15,7 @@ The system uses a text-based similarity model (TF-IDF + Cosine Similarity) to re
 ⚡ Fast and simple interface: Built with HTML, CSS, and JavaScript for smooth interaction.
 
 ☁️ Fully deployed system: Flask backend on Render and frontend on Vercel.
+
 
 🛠️ Tech Stack
 
@@ -48,6 +50,7 @@ The API processes the request by comparing the user input with internship listin
 
 The top matching internships are returned and displayed on the interface.
 
+
 🧪 Libraries Used
 
 flask
@@ -70,4 +73,16 @@ https://skillsinnov8.onrender.com/recommend
 
 Fully functional web app that generates personalized internship recommendations.
 
+Simplified the internship search process for students.
+
 Demonstrates integration of machine learning, API development, and web deployment.
+
+
+🖼️ Interface Preview
+
+<img width="1361" height="679" alt="SIWES Recommender" src="https://github.com/user-attachments/assets/ec9d7756-b942-4084-b403-069bf1abe083" />
+
+
+📧 Email: anncliff2509@gmail.com
+
+🌐 Project Live: https://skills-innov8.vercel.app
